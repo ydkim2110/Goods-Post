@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentTransaction
 
 import com.ydkim2110.goodspost.R
 import com.ydkim2110.goodspost.databinding.FragmentLoginBinding
@@ -42,8 +43,12 @@ class LoginFragment : Fragment() {
         override fun onActionViewClicked(view: View) {
             when (view.id) {
                 R.id.textSignUp -> {
-                    // TODO: Fragment Animation
-                    (requireActivity() as AppCompatActivity).replaceFragment(SignUpFragment(), R.id.layoutContainer)
+                   val fm = requireActivity().supportFragmentManager
+                    fm.beginTransaction()
+                        .setCustomAnimations(R.anim.enter_b, R.anim.exit_a, R.anim.enter_a, R.anim.exit_b)
+                        .replace(R.id.layoutContainer, SignUpFragment())
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
                 }
                 R.id.buttonSignIn -> {
                     Timber.d("buttonSignIn clicked!")

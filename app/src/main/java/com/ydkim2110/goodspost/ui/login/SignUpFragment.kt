@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentTransaction
 
 import com.ydkim2110.goodspost.R
 import com.ydkim2110.goodspost.databinding.FragmentSignUpBinding
@@ -38,7 +39,12 @@ class SignUpFragment : Fragment() {
         override fun onActionViewClicked(view: View) {
             when (view.id) {
                 R.id.textSignIn, R.id.imageBack -> {
-                    (requireActivity() as AppCompatActivity).replaceFragment(LoginFragment(), R.id.layoutContainer)
+                    val fm = requireActivity().supportFragmentManager
+                    fm.beginTransaction()
+                        .setCustomAnimations(R.anim.enter_a, R.anim.exit_b, R.anim.enter_b, R.anim.exit_a)
+                        .replace(R.id.layoutContainer, LoginFragment())
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
                 }
             }
         }
